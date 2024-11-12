@@ -3,13 +3,16 @@ let score = 0;
 let currentQuestion = 0;
 let teacherId = null;
 let categoryId = null;
+let questionCount = 10; // Oletuskysymysten määrä
 
-// Hae opettajat ja aseta valintaikkunaan
+// Hae opettajat heti sivun latautuessa
 async function loadTeachers() {
-    const response = await fetch('get_teachers.php');
+    const response = await fetch('get_teachers.php'); // Oletetaan, että tiedosto hakee opettajat
     const teachers = await response.json();
+    
     const teacherSelect = document.getElementById('teacher');
-    teacherSelect.innerHTML = '';
+    teacherSelect.innerHTML = ''; // Tyhjennetään opettajavalinta
+    
     teachers.forEach(teacher => {
         const option = document.createElement('option');
         option.value = teacher.id;
@@ -50,12 +53,14 @@ async function loadCategories() {
     document.getElementById('category-select').style.display = 'block';
 }
 
-// Aloita peli valitun kategorian kysymyksillä
+// Aloita peli käyttäjän valitsemalla kysymysmäärällä
 async function startQuiz() {
     categoryId = document.getElementById('category').value;
+    questionCount = parseInt(document.getElementById('question-count').value); // Hae kysymysmäärä
+    
     const response = await fetch(`get_questions.php?category=${categoryId}&teacher_id=${teacherId}`);
     questions = await response.json();
-    questions = questions.sort(() => 0.5 - Math.random()).slice(0, 10); // Arvo 10 kysymystä
+    questions = questions.sort(() => 0.5 - Math.random()).slice(0, questionCount); // Valitse käyttäjän määräämä määrä kysymyksiä
     score = 0;
     currentQuestion = 0;
     document.getElementById('category-select').style.display = 'none';
@@ -86,7 +91,7 @@ function checkAnswer(answer) {
     showQuestion();
 }
 
-// Lopeta peli ja kysy käyttäjän nimi tuloksen tallentamiseksi
+// Lopeta peli ja näytä tulokset
 function endQuiz() {
     document.getElementById('quiz').style.display = 'none';
     const studentName = prompt("Anna nimesi tulostaulukkoon:");
@@ -96,7 +101,7 @@ function endQuiz() {
     } else {
         alert("Nimi tarvitaan tuloksen tallentamiseen.");
         document.getElementById('results').style.display = 'block';
-        document.getElementById('final-score').textContent = `Pistemääräsi: ${score}/10`;
+        document.getElementById('final-score').textContent = `Pistemääräsi: ${score}/${questionCount}`;
     }
 }
 
@@ -119,17 +124,13 @@ async function showHighScores() {
     
     scores.forEach(entry => {
         const p = document.createElement('p');
-        p.textContent = `${entry.student_name} ${entry.score}/10 - ${entry.category_name} - ${entry.teacher_name}`;
+        p.textContent = `${entry.student_name} - Pisteet: ${entry.score}/${questionCount} - Kategoria: ${entry.category_name} - Opettaja: ${entry.teacher_name}`;
         highScoresDiv.appendChild(p);
     });
 
     document.getElementById('results').style.display = 'block';
-    document.getElementById('final-score').textContent = `Pistemääräsi: ${score}/10`;
+    document.getElementById('final-score').textContent = `Pistemääräsi: ${score}/${questionCount}`;
 }
-
-
-
-
 
 // Aloita uusi peli
 function resetQuiz() {
@@ -138,4 +139,4 @@ function resetQuiz() {
 }
 
 // Lataa opettajat heti sivun latautuessa
-loadTeachers();
+window.onload = loadTeachers;
