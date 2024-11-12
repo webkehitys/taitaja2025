@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <title>Kysymyssovellus</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Valitse Opettaja ja Kategoria</h1>
+
+    <!-- Opettajan valinta -->
+    <div id="teacher-select">
+        <h2>Valitse opettaja</h2>
+        <select id="teacher"></select>
+        <button onclick="loadCategories()">Valitse opettaja</button>
+    </div>
+
+    <!-- Kategorian valinta -->
+    <div id="category-select" style="display: none;">
+        <h2>Valitse kategoria</h2>
+        <select id="category"></select>
+        <button onclick="startQuiz()">Aloita peli</button>
+    </div>
+
+    <!-- Kysymykset -->
+    <div id="quiz" style="display: none;">
+        <h2>Kysymys</h2>
+        <p id="question"></p>
+        <div id="options">
+            <button id="optionA" onclick="checkAnswer('A')"></button>
+            <button id="optionB" onclick="checkAnswer('B')"></button>
+            <button id="optionC" onclick="checkAnswer('C')"></button>
+            <button id="optionD" onclick="checkAnswer('D')"></button>
+        </div>
+        <p id="score"></p>
+    </div>
+
+<!-- Tulokset ja parhaat tulokset -->
+<div id="results" style="display: none;">
+    <h2>Tulokset</h2>
+    <p id="final-score"></p>
+    <div id="high-scores"></div> <!-- Tulosten näyttöelementti -->
+    <button onclick="resetQuiz()">Aloita uudestaan</button>
+</div>
+
+
+    <script src="game_script.js"></script>
+</body>
+</html>
