@@ -1,21 +1,19 @@
 <?php
 include 'db.php';
 
-if (!isset($_GET['teacher_id'])) {
-    echo json_encode([]);
-    exit();
-}
+if (isset($_GET['teacher_id'])) {
+    $teacher_id = intval($_GET['teacher_id']);
 
-$teacher_id = intval($_GET['teacher_id']);
+    $sql = "SELECT id, name FROM categories WHERE teacher_id = $teacher_id";
+    $result = $conn->query($sql);
 
-$sql = "SELECT * FROM categories WHERE teacher_id = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $teacher_id);
-$stmt->execute();
-$result = $stmt->get_result();
-$categories = [];
-while ($row = $result->fetch_assoc()) {
-    $categories[] = $row;
+    $categories = [];
+    while ($row = $result->fetch_assoc()) {
+        $categories[] = $row;
+    }
+
+    echo json_encode($categories);
+} else {
+    echo json_encode(["error" => "Teacher ID missing"]);
 }
-echo json_encode($categories);
 ?>

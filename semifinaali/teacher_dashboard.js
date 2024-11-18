@@ -1,83 +1,119 @@
-// Lataa opettajan kategoriat ja täytä valintalista
+// Lataa kategoriat opettajalle
 async function loadCategories() {
-    const response = await fetch('get_teacher_categories.php');
-    const categories = await response.json();
-    
-    const categorySelect = document.getElementById('question-category');
-    const existingCategoryList = document.getElementById('existing-category-list');
-    categorySelect.innerHTML = '';
-    existingCategoryList.innerHTML = '<option value="">Valitse kategoria</option>'; 
+    try {
+        const response = await fetch(`get_categories.php?teacher_id=${teacherId}`);
+        if (!response.ok) throw new Error("Kategorioiden lataaminen epäonnistui");
+        
+        const categories = await response.json();
 
-    categories.forEach(category => {
-        const option = document.createElement('option');
-        option.value = category.id;
-        option.textContent = category.name;
-        categorySelect.appendChild(option);
+        const existingCategoryList = document.getElementById('existing-category-list');
+        const questionCategorySelect = document.getElementById('question-category');
 
-        const existingOption = option.cloneNode(true);
-        existingCategoryList.appendChild(existingOption);
-    });
+        // Tyhjennä vanhat kategoriat valikoista
+        existingCategoryList.innerHTML = '<option value="">Valitse kategoria</option>';
+        questionCategorySelect.innerHTML = '';
+
+        categories.forEach(category => {
+            const option = document.createElement('option');
+            option.value = category.id;
+            option.textContent = category.name;
+            existingCategoryList.appendChild(option);
+
+            // Lisätään sama kategoria myös kysymyksen lisäysvalikkoon
+            const optionClone = option.cloneNode(true);
+            questionCategorySelect.appendChild(optionClone);
+        });
+    } catch (error) {
+        console.error("Virhe kategoriat ladattaessa:", error);
+    }
 }
 
-// Lataa valitun kategorian kysymykset ja näytä ne listana
+// Lataa kysymykset valitusta kategoriasta ja lisää muokkaus- ja poistopainikkeet
 async function loadQuestions() {
     const categoryId = document.getElementById('existing-category-list').value;
+
     if (!categoryId) return;
 
-    const response = await fetch(`get_teacher_questions.php?category_id=${categoryId}`);
+    const response = await fetch(`get_questions.php?category=${categoryId}&teacher_id=${teacherId}`);
     const questions = await response.json();
-    
-    const questionList = document.getElementById('questions');
-    questionList.innerHTML = '';
-    
+
+    const questionsContainer = document.getElementById('questions');
+    questionsContainer.innerHTML = '';
+
     questions.forEach(question => {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${question.question} (A: ${question.option_a}, B: ${question.option_b}, C: ${question.option_c}, D: ${question.option_d}) - Oikea vastaus: ${question.correct_option}`;
-        questionList.appendChild(listItem);
+        const questionItem = document.createElement('li');
+        questionItem.classList.add('question-item');
+
+        // Kysymyksen teksti
+        const questionTitle = document.createElement('div');
+        questionTitle.classList.add('question-title');
+        questionTitle.textContent = `${question.question} (A: ${question.option_a}, B: ${question.option_b}, C: ${question.option_c}, D: ${question.option_d}) - Oikea vastaus: ${question.correct_option}`;
+
+        // Muokkaus-painike
+        const editButton = document.createElement('button');
+        editButton.textContent = 'Muokkaa';
+        editButton.classList.add('edit-button');
+        editButton.onclick = () => editQuestion(question);
+
+        // Poisto-painike
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Poista';
+        deleteButton.classList.add('delete-button');
+        deleteButton.onclick = () => deleteQuestion(question.id);
+
+        // Lisää kysymys ja painikkeet
+        questionItem.appendChild(questionTitle);
+        questionItem.appendChild(editButton);
+        questionItem.appendChild(deleteButton);
+        questionsContainer.appendChild(questionItem);
     });
 }
 
 // Lisää uusi kategoria
 async function addCategory() {
-    const newCategory = document.getElementById('new-category').value.trim();
-    if (newCategory) {
+    const categoryName = document.getElementById('new-category').value;
+
+    if (categoryName) {
         await fetch('add_category.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name: newCategory })
+            body: JSON.stringify({ teacher_id: teacherId, name: categoryName })
         });
         document.getElementById('new-category').value = '';
         loadCategories();
+    } else {
+        alert("Anna kategorian nimi.");
     }
 }
 
-// Lisää uusi kysymys valittuun kategoriaan
-async function addQuestion() {
-    const category_id = document.getElementById('question-category').value;
-    const question = document.getElementById('question-text').value;
-    const optionA = document.getElementById('option-a').value;
-    const optionB = document.getElementById('option-b').value;
-    const optionC = document.getElementById('option-c').value;
-    const optionD = document.getElementById('option-d').value;
-    const correctOption = document.getElementById('correct-option').value;
+// Muokkaa kysymystä
+function editQuestion(question) {
+    const newQuestionText = prompt("Muokkaa kysymystä:", question.question);
+    if (newQuestionText) {
+        question.question = newQuestionText;
+        updateQuestion(question);
+    }
+}
 
-    if (question && optionA && optionB && optionC && optionD) {
-        await fetch('add_question.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                category_id: category_id,
-                question: question,
-                option_a: optionA,
-                option_b: optionB,
-                option_c: optionC,
-                option_d: optionD,
-                correct_option: correctOption
-            })
+// Päivitä kysymys tietokannassa
+async function updateQuestion(question) {
+    await fetch('update_question.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(question)
+    });
+    loadQuestions();
+}
+
+// Poista kysymys
+async function deleteQuestion(questionId) {
+    if (confirm("Haluatko varmasti poistaa kysymyksen?")) {
+        await fetch(`delete_question.php?id=${questionId}`, {
+            method: 'DELETE'
         });
-        loadQuestions(); // Päivitä kysymyslista
+        loadQuestions();
     }
 }
 
 // Lataa kategoriat heti sivun latautuessa
-loadCategories();
+window.onload = loadCategories;
