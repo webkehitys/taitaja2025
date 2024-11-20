@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kysymyssovellus</title>
+    <title>Kysymyspeli</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -13,20 +13,24 @@
         <!-- Opettajan valinta -->
         <div id="teacher-select">
             <h2>Valitse opettaja</h2>
-            <select id="teacher"></select>
+            <select id="teacher">
+                <!-- Opettajat lisätään JavaScriptillä -->
+            </select>
             <button onclick="loadCategories()">Valitse opettaja</button>
         </div>
 
         <!-- Kategorian ja kysymysmäärän valinta -->
         <div id="category-select" style="display: none;">
             <h2>Valitse kategoria</h2>
-            <select id="category"></select>
+            <select id="category">
+                <!-- Kategoriat lisätään JavaScriptillä -->
+            </select>
             
             <h3>Valitse kysymysten määrä</h3>
             <select id="question-count">
+                <option value="5">5 kysymystä</option>
                 <option value="10">10 kysymystä</option>
                 <option value="15">15 kysymystä</option>
-                <option value="20">20 kysymystä</option>
             </select>
             
             <button onclick="startQuiz()">Aloita peli</button>
@@ -49,12 +53,6 @@
             <p id="final-score"></p>
             <div id="high-scores"></div>
             <button onclick="resetQuiz()">Aloita uudestaan</button>
-        </div>
-
-        <!-- Opettajan hallintapaneeli -->
-        <div id="questions-container" style="display: none;">
-            <h2>Kysymykset</h2>
-            <ul id="questions"></ul>
         </div>
     </div>
 
