@@ -16,8 +16,8 @@ h1, h2, h3 {
     color: #4a90e2;
 }
 
-/* Kontainerit */
-.container, #game-container {
+/* Pääkontaineri */
+#game-container {
     background: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -27,34 +27,18 @@ h1, h2, h3 {
     text-align: center;
 }
 
-/* Lomakkeet */
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-}
-
-form input, form select, form button {
+/* Valintaelementit */
+select, button {
     font-size: 16px;
     padding: 10px;
-    margin: 10px 0;
+    margin: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     width: 90%;
     max-width: 300px;
-}
-
-form button {
-    background-color: #4a90e2;
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-form button:hover {
-    background-color: #357ab7;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Kysymysnäkymä */
@@ -82,7 +66,12 @@ form button:hover {
     transform: scale(1.2);
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
-
+.correct-answer {
+    background-color: #28a745 !important;
+    color: #fff !important;
+    transform: scale(1.2); /* Suurentaa painiketta hieman */
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
 /* Tulossivu */
 #results {
     text-align: center;
@@ -101,126 +90,4 @@ form button:hover {
 
 #results button:hover {
     background-color: #357ab7;
-}
-
-/* Login- ja rekisteröitymissivut */
-.login-container {
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    width: 90%;
-    max-width: 400px;
-}
-
-.login-container input {
-    width: 90%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.login-container button {
-    width: 90%;
-    padding: 10px;
-    background-color: #4a90e2;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.login-container button:hover {
-    background-color: #357ab7;
-}
-
-/* Dashboard */
-.dashboard-container {
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 90%;
-    max-width: 600px;
-    text-align: center;
-}
-
-.dashboard-section {
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-.dashboard-section h2 {
-    margin-bottom: 10px;
-    color: #333;
-}
-
-.dashboard-section input, .dashboard-section select {
-    width: 90%;
-    padding: 10px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.dashboard-section button {
-    padding: 10px;
-    background-color: #4a90e2;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.dashboard-section button:hover {
-    background-color: #357ab7;
-}
-
-/* Kysymyslista */
-#questions {
-    list-style-type: none;
-    padding: 0;
-}
-
-#questions li {
-    background: #f9f9f9;
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#questions button {
-    padding: 5px 10px;
-    font-size: 14px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    color: white;
-}
-
-#questions button.edit-button {
-    background-color: #4a90e2;
-}
-
-#questions button.delete-button {
-    background-color: #e74c3c;
-}
-
-#questions button.edit-button:hover {
-    background-color: #357ab7;
-}
-
-#questions button.delete-button:hover {
-    background-color: #c0392b;
 }
