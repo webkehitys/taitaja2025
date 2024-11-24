@@ -2,21 +2,20 @@
 <html lang="fi">
 <head>
     <meta charset="UTF-8">
-    <title>Opettajan rekisteröityminen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rekisteröityminen</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Rekisteröidy</h1>
-    <form action="register_teacher.php" method="POST">
-        <label for="username">Käyttäjänimi</label>
-        <input type="text" id="username" name="username" required>
-
-        <label for="password">Salasana</label>
-        <input type="password" id="password" name="password" required>
-
-        <button type="submit">Rekisteröidy</button>
-    </form>
-
-    <p>Onko sinulla jo tili? <a href="login.html">Kirjaudu sisään</a></p>
+    <div class="login-container">
+        <h1>Rekisteröidy</h1>
+        <form action="register_teacher.php" method="post">
+            <input type="text" name="username" placeholder="Käyttäjätunnus" required>
+            <input type="password" name="password" placeholder="Salasana" required>
+            <input type="password" name="confirm_password" placeholder="Vahvista salasana" required>
+            <button type="submit">Rekisteröidy</button>
+        </form>
+        <p>Onko sinulla jo käyttäjätunnus? <a href="login.html">Kirjaudu tästä</a></p>
+    </div>
 </body>
 </html>

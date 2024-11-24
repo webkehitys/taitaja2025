@@ -1,38 +1,44 @@
-// Lataa kategoriat opettajalle
+let teacherId = null;
+
+// Lataa kategoriat ja näytä ne valintalistassa
 async function loadCategories() {
-    try {
-        const response = await fetch(`get_categories.php?teacher_id=${teacherId}`);
-        if (!response.ok) throw new Error("Kategorioiden lataaminen epäonnistui");
-        
-        const categories = await response.json();
+    const teacherId = <?php echo $teacher_id; ?>; // Haetaan opettajan ID PHP:stä
+    const response = await fetch(`get_categories.php?teacher_id=${teacherId}`);
+    const categories = await response.json();
 
-        const existingCategoryList = document.getElementById('existing-category-list');
-        const questionCategorySelect = document.getElementById('question-category');
+    const existingCategoryList = document.getElementById('existing-category-list');
+    const questionCategorySelect = document.getElementById('question-category');
 
-        // Tyhjennä vanhat kategoriat valikoista
-        existingCategoryList.innerHTML = '<option value="">Valitse kategoria</option>';
-        questionCategorySelect.innerHTML = '';
+    existingCategoryList.innerHTML = '<option value="">Valitse kategoria</option>';
+    questionCategorySelect.innerHTML = '<option value="">Valitse kategoria</option>';
 
-        categories.forEach(category => {
-            const option = document.createElement('option');
-            option.value = category.id;
-            option.textContent = category.name;
-            existingCategoryList.appendChild(option);
-
-            // Lisätään sama kategoria myös kysymyksen lisäysvalikkoon
-            const optionClone = option.cloneNode(true);
-            questionCategorySelect.appendChild(optionClone);
-        });
-    } catch (error) {
-        console.error("Virhe kategoriat ladattaessa:", error);
+    if (categories.length === 0) {
+        alert("Ei kategorioita tällä opettajalla.");
+        return;
     }
+
+    categories.forEach(category => {
+        const option1 = document.createElement('option');
+        option1.value = category.id;
+        option1.textContent = category.name;
+        existingCategoryList.appendChild(option1);
+
+        const option2 = document.createElement('option');
+        option2.value = category.id;
+        option2.textContent = category.name;
+        questionCategorySelect.appendChild(option2);
+    });
 }
 
-// Lataa kysymykset valitusta kategoriasta ja lisää muokkaus- ja poistopainikkeet
+
+// Lataa kysymykset valitussa kategoriassa
 async function loadQuestions() {
     const categoryId = document.getElementById('existing-category-list').value;
 
-    if (!categoryId) return;
+    if (!categoryId) {
+        document.getElementById('questions').innerHTML = '';
+        return;
+    }
 
     const response = await fetch(`get_questions.php?category=${categoryId}&teacher_id=${teacherId}`);
     const questions = await response.json();
@@ -41,13 +47,13 @@ async function loadQuestions() {
     questionsContainer.innerHTML = '';
 
     questions.forEach(question => {
-        const questionItem = document.createElement('li');
-        questionItem.classList.add('question-item');
+        const listItem = document.createElement('li');
+        listItem.classList.add('question-item');
 
         // Kysymyksen teksti
         const questionTitle = document.createElement('div');
         questionTitle.classList.add('question-title');
-        questionTitle.textContent = `${question.question} (A: ${question.option_a}, B: ${question.option_b}, C: ${question.option_c}, D: ${question.option_d}) - Oikea vastaus: ${question.correct_option}`;
+        questionTitle.textContent = `${question.question} (Oikea vastaus: ${question.correct_option})`;
 
         // Muokkaus-painike
         const editButton = document.createElement('button');
@@ -61,59 +67,86 @@ async function loadQuestions() {
         deleteButton.classList.add('delete-button');
         deleteButton.onclick = () => deleteQuestion(question.id);
 
-        // Lisää kysymys ja painikkeet
-        questionItem.appendChild(questionTitle);
-        questionItem.appendChild(editButton);
-        questionItem.appendChild(deleteButton);
-        questionsContainer.appendChild(questionItem);
+        listItem.appendChild(questionTitle);
+        listItem.appendChild(editButton);
+        listItem.appendChild(deleteButton);
+        questionsContainer.appendChild(listItem);
     });
 }
 
-// Lisää uusi kategoria
-async function addCategory() {
-    const categoryName = document.getElementById('new-category').value;
+// Lisää kysymys
+async function addQuestion() {
+    const categorySelect = document.getElementById('question-category');
+    const questionText = document.getElementById('question-text').value.trim();
+    const optionA = document.getElementById('option-a').value.trim();
+    const optionB = document.getElementById('option-b').value.trim();
+    const optionC = document.getElementById('option-c').value.trim();
+    const optionD = document.getElementById('option-d').value.trim();
+    const correctOption = document.getElementById('correct-option').value;
 
-    if (categoryName) {
-        await fetch('add_category.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ teacher_id: teacherId, name: categoryName })
-        });
-        document.getElementById('new-category').value = '';
-        loadCategories();
-    } else {
-        alert("Anna kategorian nimi.");
+    const categoryId = categorySelect.value;
+
+    if (!categoryId || !questionText || !optionA || !optionB || !optionC || !optionD || !correctOption) {
+        alert("Täytä kaikki kentät!");
+        return;
     }
-}
 
-// Muokkaa kysymystä
-function editQuestion(question) {
-    const newQuestionText = prompt("Muokkaa kysymystä:", question.question);
-    if (newQuestionText) {
-        question.question = newQuestionText;
-        updateQuestion(question);
-    }
-}
+    const data = {
+        category_id: categoryId,
+        question: questionText,
+        option_a: optionA,
+        option_b: optionB,
+        option_c: optionC,
+        option_d: optionD,
+        correct_option: correctOption,
+        teacher_id: teacherId
+    };
 
-// Päivitä kysymys tietokannassa
-async function updateQuestion(question) {
-    await fetch('update_question.php', {
+    const response = await fetch('add_question.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(question)
+        body: JSON.stringify(data)
     });
-    loadQuestions();
+
+    const result = await response.json();
+
+    if (result.success) {
+        alert("Kysymys lisätty onnistuneesti!");
+        document.getElementById('question-text').value = '';
+        document.getElementById('option-a').value = '';
+        document.getElementById('option-b').value = '';
+        document.getElementById('option-c').value = '';
+        document.getElementById('option-d').value = '';
+        document.getElementById('correct-option').value = 'A';
+        loadQuestions();
+    } else {
+        alert("Kysymyksen lisääminen epäonnistui: " + (result.error || "Tuntematon virhe"));
+    }
 }
 
 // Poista kysymys
 async function deleteQuestion(questionId) {
     if (confirm("Haluatko varmasti poistaa kysymyksen?")) {
-        await fetch(`delete_question.php?id=${questionId}`, {
-            method: 'DELETE'
-        });
+        await fetch(`delete_question.php?id=${questionId}`, { method: 'DELETE' });
         loadQuestions();
     }
 }
 
-// Lataa kategoriat heti sivun latautuessa
+// Muokkaa kysymystä
+async function editQuestion(question) {
+    const newText = prompt("Muokkaa kysymystä:", question.question);
+    if (!newText) return;
+
+    question.question = newText;
+
+    await fetch('update_question.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(question),
+    });
+
+    loadQuestions();
+}
+
+// Lataa kategoriat ja opettajan tiedot sivun latauksessa
 window.onload = loadCategories;
