@@ -8,15 +8,19 @@
 
 **Välj ett ramverk:**
 - Gå till **Organisation → Frameworks**.
+  ![orgs](/semifinaali/instructions/orgs.png)
 - Välj ett ramverk som du vill använda, eller en "vanilla"-mall.
 - Klicka på **"Use this template"** för att skapa ett nytt repo.
 - Namnge repot efter modulens namn: **frontend** eller **backend**. Om du använder vanilla-projekt, namnge repot **frontend**.
+  ![new repo](/semifinaali/instructions/new_repo.png)
 
 **Ställ in Action-secrets:**
 1. Öppna inställningarna för ditt repo: **Settings → Actions → Secrets**.
-2. Lägg till följande:
+  ![secrets settings](/semifinaali/instructions/secrets.png)
+1. Lägg till följande:
    - **USER:** Ditt användarnamn (t.ex. comp01)
    - **PASS:** Ditt lösenord (t.ex. test123)
+  ![secrets settings](/semifinaali/instructions/add-secret.png)
 
 ![secrets settings](/semifinaali/instructions/secrets.png)
 

@@ -8,17 +8,20 @@
 
 **Choose a Framework:**
 - Navigate to **Organization → Frameworks**.
+  ![orgs](/semifinaali/instructions/orgs.png)
 - Select a framework you want to use, or choose the "vanilla" template.
 - Click **"Use this template"** to create a new repository.
 - Name the repository based on the module name, **frontend** or **backend**. For a vanilla project, name the repository **frontend**.
+  ![new repo](/semifinaali/instructions/new_repo.png)
+
 
 **Set up Action Secrets:**
 1. Open your repository settings: **Settings → Actions → Secrets**.
+  ![secrets settings](/semifinaali/instructions/secrets.png)
 2. Add the following:
    - **USER:** Your username (e.g., comp01)
    - **PASS:** Your password (e.g., test123)
-
-![secrets settings](/semifinaali/instructions/secrets.png)
+  ![secrets settings](/semifinaali/instructions/secrets.png)
 
 **Test the Setup:**
 - Make a commit to verify that GitHub Actions work correctly.

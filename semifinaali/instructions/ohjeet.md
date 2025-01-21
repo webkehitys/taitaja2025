@@ -8,17 +8,22 @@
 
 **Valitse framework:**
 - Siirry **Organisaatio → Frameworks**.
+  ![orgs](/semifinaali/instructions/orgs.png)
+
 - Valitse framework, jota haluat käyttää, tai "vanilla"-pohja.
 - Klikkaa **"Use this template"** luodaksesi uuden repositorion.
 - Nimeä repositorio moduulin nimen mukaan: **frontend** tai **backend**. Vanilla-projektissa nimeä repositorio **frontend**.
+  ![new repo](/semifinaali/instructions/new_repo.png)
+
+
 
 **Aseta Action Secrets:**
 1. Avaa repositoriosi asetukset: **Settings → Actions → Secrets**.
+   ![secrets settings](/semifinaali/instructions/secrets.png)
 2. Lisää seuraavat:
    - **USER:** Käyttäjänimesi (esim. comp01)
    - **PASS:** Salasanasi (esim. test123)
-
-![secrets settings](/semifinaali/instructions/secrets.png)
+  ![secrets settings](/semifinaali/instructions/add-secret.png)
 
 **Testaa toiminta:**
 - Tee commit ja tarkista, että GitHub Actions toimii oikein.
