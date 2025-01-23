@@ -18,6 +18,9 @@
 - Select the framework you want to use or the "vanilla" template.
 - Click **"Use this template"** to create a new repository.
 - Name the repository according to the module name: **frontend** or **backend**. For vanilla projects, name the repository **frontend**.
+  
+  ![secrets settings](/semifinaali/instructions/new_repo.png)
+
 - Open your repository settings: **Settings → Actions → Secrets**.
 - Add the following:
   - **USER:** Your username (e.g., comp01)

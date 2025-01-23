@@ -18,6 +18,9 @@
 - Välj det ramverk du vill använda eller använd "vanilla"-mallen.
 - Klicka på **"Use this template"** för att skapa ett nytt repo.
 - Namnge repot efter modulnamnet: **frontend** eller **backend**. För vanilla-projekt, namnge repot **frontend**.
+
+![secrets settings](/semifinaali/instructions/new_repo.png)
+
 - Öppna inställningarna för ditt repo: **Settings → Actions → Secrets**.
 - Lägg till följande:
   - **USER:** Ditt användarnamn (t.ex. comp01)

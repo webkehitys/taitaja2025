@@ -18,6 +18,9 @@
 - Valitse framework, jota haluat käyttää, tai "vanilla"-pohja.
 - Klikkaa **"Use this template"** luodaksesi uuden repositorion.
 - Nimeä repositorio moduulin nimen mukaan: **frontend** tai **backend**. Vanilla-projektissa nimeä repositorio **frontend**.
+  
+  ![secrets settings](/semifinaali/instructions/new_repo.png)
+
 - Avaa repositoriosi asetukset: **Settings → Actions → Secrets**.
 - Lisää seuraavat:
   - **USER:** Käyttäjänimesi (esim. comp01)
