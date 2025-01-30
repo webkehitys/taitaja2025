@@ -7,7 +7,7 @@ Tämä `README.md` tiedosto sisältää ohjeet ja aikataulun tehtävän suoritta
 
 ## Aikataulu
 
-- **8:30** Yhteyden avaus
+- **8:45** Yhteyden avaus
 - **9:00 - 9:15** Tehtävänanto
 - **9:15 – 11:45** Tehtävän tekoaika (2,5 h)
 - **11:45 - 12:30**   Lounas
@@ -38,7 +38,7 @@ Denna `README.md` fil innehåller instruktioner och tidtabellen för att genomf�
 
 ## Tidsplan
 
-- **8:30** Öppning av anslutningen
+- **8:45** Öppning av anslutningen
 - **9:00 - 9:15** Uppgiftspresentation
 - **9:15 – 11:45** Uppgiftsarbete (2,5 h)
 - **11:45 - 12:30**   Lunch
