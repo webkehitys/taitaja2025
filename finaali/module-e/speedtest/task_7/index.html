@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Word Counter</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 40px;
+        max-width: 600px;
+        margin: auto;
+      }
+
+      textarea {
+        width: 100%;
+        height: 120px;
+        font-size: 16px;
+      }
+
+      #counter {
+        margin-top: 10px;
+        font-weight: bold;
+      }
+
+      .over-limit {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Write your text</h1>
+    <textarea id="text" placeholder="Start typing..."></textarea>
+    <p id="counter">0 / 50 words</p>
+
+    <script>
+      // TODO: Count words as user types
+      // TODO: Add warning or highlight if over 50 words
+    </script>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Broken Layout</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: sans-serif;
+        margin: 0;
+        padding: 20px;
+      }
+
+      .container {
+        /* TODO: Fix the layout */
+        text-align: center;
+      }
+
+      .box {
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+        line-height: 100px;
+        font-weight: bold;
+        font-size: 20px;
+        color: white;
+        margin: 10px;
+      }
+
+      .box:nth-child(1) {
+        background-color: #e74c3c;
+      }
+      .box:nth-child(2) {
+        background-color: #27ae60;
+      }
+      .box:nth-child(3) {
+        background-color: #2980b9;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="box">Box 1</div>
+      <div class="box">Box 2</div>
+      <div class="box">Box 3</div>
+    </div>
+  </body>
+</html>

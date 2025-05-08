@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Email Validator</title>
+    <style>
+      #icons {
+        font-size: 24px;
+        margin-left: 8px;
+      }
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <label for="email">Email:</label>
+    <input type="text" id="email" placeholder="your@email.com" />
+    <span id="icons">
+      <span id="icon-valid" class="hidden">✅</span>
+      <span id="icon-invalid">❌</span>
+    </span>
+
+    <br /><br />
+    <button
+      onclick="document.getElementById('email').value = 'test@example.com'"
+    >
+      Set Valid Email
+    </button>
+    <button onclick="document.getElementById('email').value = 'invalid-email'">
+      Set Invalid Email
+    </button>
+
+    <script>
+      // TODO: Add input listener and validation logic
+    </script>
+  </body>
+</html>

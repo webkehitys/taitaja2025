@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>2x2 Memory Game</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        text-align: center;
+        padding: 40px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 100px);
+        gap: 20px;
+        justify-content: center;
+      }
+
+      .card {
+        width: 100px;
+        height: 100px;
+        background-color: #ccc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .flipped {
+        background-color: #4caf50;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Memory Game</h1>
+    <div class="grid">
+      <div class="card" data-value="🦊"></div>
+      <div class="card" data-value="🐰"></div>
+      <div class="card" data-value="🦊"></div>
+      <div class="card" data-value="🐰"></div>
+    </div>
+
+    <script>
+      // TODO:
+      // - Flip cards on click
+      // - Show the emoji
+      // - Keep matches visible
+      // - Hide mismatches after 1s
+      // - Only 2 cards can be flipped at once
+    </script>
+  </body>
+</html>

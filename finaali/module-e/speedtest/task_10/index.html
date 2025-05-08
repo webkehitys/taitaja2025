@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dark Mode Toggle</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        background-color: white;
+        color: black;
+        transition: background-color 0.4s ease, color 0.4s ease;
+      }
+
+      body.dark {
+        background-color: #121212;
+        color: white;
+      }
+
+      button {
+        margin-top: 40px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Dark Mode Toggle</h1>
+    <button id="toggle-theme">Toggle Theme</button>
+
+    <script>
+      // TODO:
+      // - Toggle the "dark" class on <body>
+      // - Add smooth transition
+      // - Store user preference in localStorage
+      // - Load saved preference on page load
+    </script>
+  </body>
+</html>
