@@ -1,6 +1,6 @@
 ![taitaja2025 Turku](taitaja25.png) 
 
-# Taitaja 2025 web-kehitys laji tehtävät
+# Taitaja 2025 Web-kehitys kilpailutehtävät
 
 ## Semifinaali
 
